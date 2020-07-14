@@ -3,17 +3,19 @@ import requests
 params = {'apikey': '610D5CD6-06DA-4055-81A3-6F02D1747C59'}
 
 # Coins
-URL = "https://rest-sandbox.coinapi.io/v1/exchangerate/USD"
-assets_URL = "https://rest-sandbox.coinapi.io/v1/assets"
+URL = "https://rest.coinapi.io/v1/exchangerate/USD"
+assets_URL = "https://rest.coinapi.io/v1/assets"
 
 response = requests.get(url=URL, params=params)
 data = response.json()
 
 coins = data['rates']
 
+counter = 1
 print("Coin Rate/USD\n")
 for coin in coins:
-    print(coin['asset_id_quote'], coin['rate'])
+    print(counter, coin['asset_id_quote'], coin['rate'])
+    counter = counter + 1
 
 # Currency Definition
 print("\nCurrency Definition\n")
