@@ -44,19 +44,6 @@ top_100_coin_dict = {'BTC': 'Bitcoin', 'ETH': 'Ethereum', 'XRP': 'XRP', 'USDT': 
                      'FXC': 'Flexacoin',
                      'ARDR': 'Ardor', 'AE': 'Aeternity', 'XET': 'ETERNAL TOKEN'}
 
-# write all top 100 coin name
-coin_column = 1
-for key, val in top_100_coin_dict.items():
-    print(key, val)
-
-    sheet_two.write(0, 0, "Symbol")
-    sheet_two.write(0, 1, "Name")
-
-    sheet_two.write(coin_column, 0, key)
-    sheet_two.write(coin_column, 1, val)
-
-    coin_column += 1
-
 # coins - trade rate
 URL = "https://rest.coinapi.io/v1/exchangerate/USD"
 
@@ -78,21 +65,34 @@ for coin in coins:
 
 workbook_to_write.close()
 
-# print all assets definition
-# assets_URL = "https://rest.coinapi.io/v1/assets"
-#
-# assets_response = requests.get(url=assets_URL, params=params)
-# assets_data = assets_response.json()
-#
-# coin_id = ""
-# coin_name = ""
-#
-# for coin in assets_data:
-#
-#     coin_id = coin['asset_id']
-#     try:
-#         coin_name = coin['name']
-#     except:
-#         coin_name = "N/A"
-#     print(coin_id, coin_name)
+#print all assets definition
+assets_URL = "https://rest.coinapi.io/v1/assets"
 
+assets_response = requests.get(url=assets_URL, params=params)
+assets_data = assets_response.json()
+
+coin_id = ""
+coin_name = ""
+
+for coin in assets_data:
+
+    coin_id = coin['asset_id']
+    try:
+        coin_name = coin['name']
+    except:
+        coin_name = "N/A"
+    print(coin_id, coin_name)
+
+
+# write all top 100 coin name
+coin_column = 1
+for key, val in top_100_coin_dict.items():
+    print(key, val)
+
+    sheet_two.write(0, 0, "Symbol")
+    sheet_two.write(0, 1, "Name")
+
+    sheet_two.write(coin_column, 0, key)
+    sheet_two.write(coin_column, 1, val)
+
+    coin_column += 1
