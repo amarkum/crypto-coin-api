@@ -55,8 +55,8 @@ coins = data['rates']
 counter = 1
 sheet_one.write(0, 0, "Date")
 
-current_time = datetime.now()
-sheet_one.write(1, 0, "current_time")
+current_time = datetime.now().strftime("%m-%d-%Y")
+sheet_one.write(1, 0, current_time)
 
 for coin in coins:
     sheet_one.write(0, counter, coin['asset_id_quote'])
