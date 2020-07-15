@@ -63,9 +63,7 @@ for coin in coins:
     sheet_one.write(1, counter, coin['rate'])
     counter += 1
 
-workbook_to_write.close()
-
-#print all assets definition
+# print all assets definition
 assets_URL = "https://rest.coinapi.io/v1/assets"
 
 assets_response = requests.get(url=assets_URL, params=params)
@@ -83,7 +81,6 @@ for coin in assets_data:
         coin_name = "N/A"
     print(coin_id, coin_name)
 
-
 # write all top 100 coin name
 coin_column = 1
 for key, val in top_100_coin_dict.items():
@@ -96,3 +93,5 @@ for key, val in top_100_coin_dict.items():
     sheet_two.write(coin_column, 1, val)
 
     coin_column += 1
+
+workbook_to_write.close()
