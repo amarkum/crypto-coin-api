@@ -1,7 +1,7 @@
+from datetime import datetime
 import investpy
-import xlsxwriter
 import requests
-import datetime
+import xlsxwriter
 
 # init
 params = {'apikey': '610D5CD6-06DA-4055-81A3-6F02D1747C59'}
@@ -24,7 +24,7 @@ top_100_coin_dict = {'BTC': 'Bitcoin', 'ETH': 'Ethereum', 'XRP': 'XRP', 'USDT': 
                      'TUSD': 'TrueUSD',
                      'THX': 'ThoreNext', 'ZRX': '0x', 'RVN': 'Ravencoin', 'ALGO': 'Algorand',
                      'PZM': 'PRIZM',
-                     'CNX': 'Cryptonex',  'HOT': 'Holo', 'CENNZ': 'Centrality',
+                     'CNX': 'Cryptonex', 'HOT': 'Holo', 'CENNZ': 'Centrality',
                      'REP': 'Augur',
                      'WAVES': 'Waves', 'SEELE': 'Seele', 'BTG': 'Bitcoin Gold', 'OMG': 'OmiseGO',
                      'NANO': 'Nano', 'XIN': 'Mixin', 'ABBC': 'ABBC Coin', 'KCS': 'KuCoin Shares', 'THETA': 'THETA',
@@ -40,10 +40,9 @@ top_100_coin_dict = {'BTC': 'Bitcoin', 'ETH': 'Ethereum', 'XRP': 'XRP', 'USDT': 
                      'FXC': 'Flexacoin',
                      'ARDR': 'Ardor', 'AE': 'Aeternity', 'XET': 'ETERNAL TOKEN'}
 
-
 for key, val in top_100_coin_dict.items():
     data = investpy.get_crypto_historical_data(crypto=val, from_date='14/07/2020', to_date='16/07/2020', as_json=False)
-    print("\n"+key)
+    print("\n" + key)
     print(data)
 
 # write all top 100 coin name
