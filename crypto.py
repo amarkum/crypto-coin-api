@@ -1,6 +1,4 @@
-from datetime import datetime
-
-import requests
+import investpy
 import xlsxwriter
 
 # init
@@ -44,42 +42,8 @@ top_100_coin_dict = {'BTC': 'Bitcoin', 'ETH': 'Ethereum', 'XRP': 'XRP', 'USDT': 
                      'FXC': 'Flexacoin',
                      'ARDR': 'Ardor', 'AE': 'Aeternity', 'XET': 'ETERNAL TOKEN'}
 
-# coins - trade rate
-URL = "https://rest.coinapi.io/v1/exchangerate/USD"
-
-response = requests.get(url=URL, params=params)
-data = response.json()
-
-coins = data['rates']
-
-counter = 1
-sheet_one.write(0, 0, "Date")
-
-current_time = datetime.now().strftime("%m-%d-%Y")
-sheet_one.write(1, 0, current_time)
-
-for coin in coins:
-    sheet_one.write(0, counter, coin['asset_id_quote'])
-    sheet_one.write(1, counter, coin['rate'])
-    counter += 1
-
-# print all assets definition
-assets_URL = "https://rest.coinapi.io/v1/assets"
-
-assets_response = requests.get(url=assets_URL, params=params)
-assets_data = assets_response.json()
-
-coin_id = ""
-coin_name = ""
-
-for coin in assets_data:
-
-    coin_id = coin['asset_id']
-    try:
-        coin_name = coin['name']
-    except:
-        coin_name = "N/A"
-    print(coin_id, coin_name)
+data = investpy.get_crypto_historical_data(crypto='ABBC Coin', from_date='16/07/2019', to_date='16/07/2020',
+                                           as_json=True)
 
 # write all top 100 coin name
 coin_column = 1
@@ -95,3 +59,42 @@ for key, val in top_100_coin_dict.items():
     coin_column += 1
 
 workbook_to_write.close()
+
+# CoinAPI Source Code
+
+# coins - trade rate
+# URL = "https://rest.coinapi.io/v1/exchangerate/USD"
+#
+# response = requests.get(url=URL, params=params)
+# data = response.json()
+#
+# coins = data['rates']
+#
+# counter = 1
+# sheet_one.write(0, 0, "Date")
+#
+# current_time = datetime.now().strftime("%m-%d-%Y")
+# sheet_one.write(1, 0, current_time)
+#
+# for coin in coins:
+#     sheet_one.write(0, counter, coin['asset_id_quote'])
+#     sheet_one.write(1, counter, coin['rate'])
+#     counter += 1
+
+# print all assets definition
+# assets_URL = "https://rest.coinapi.io/v1/assets"
+#
+# assets_response = requests.get(url=assets_URL, params=params)
+# assets_data = assets_response.json()
+#
+# coin_id = ""
+# coin_name = ""
+#
+# for coin in assets_data:
+#
+#     coin_id = coin['asset_id']
+#     try:
+#         coin_name = coin['name']
+#     except:
+#         coin_name = "N/A"
+#     print(coin_id, coin_name)
